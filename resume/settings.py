@@ -112,22 +112,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-if DEBUG:
-    STATIC_URL = 'static/'
-
-    STATICFILES_DIRS = [
+STATICFILES_DIRS = [
         BASE_DIR / "static",
     ]
 
+if DEBUG:
+    STATIC_URL = 'static/'
     STATIC_ROOT = BASE_DIR / "staticfiles"
 
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
-
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 else:
+
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
@@ -145,6 +144,8 @@ else:
     STATIC_ROOT = STATIC_URL
 
     MEDIA_LOCATION = 'media'
+    IMAGE_SETTING_LOCATION = MEDIA_LOCATION + '/image_settings'
+    DOCUMENT_LOCATION = MEDIA_LOCATION + '/documents'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
