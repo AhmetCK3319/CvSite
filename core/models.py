@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.core.validators import MinValueValidator, MaxValueValidator
-from resume.custom_storages import DocumentStorages, ImageSettingStorages
+from resume.custom_storages import DocumentStorage, ImageSettingStorage
 
 class AbstractModel(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='güncelleme tarihi', help_text='')
@@ -28,10 +28,11 @@ class GeneralSettinModel(AbstractModel):
 
 class ImageModel(AbstractModel):
     name = models.CharField(max_length=100, verbose_name='isim', help_text='', blank=True, default='')
-    image = models.ImageField(storages=ImageSettingStorages(), verbose_name='resim', help_text='', blank=True, default='')
+    image = models.ImageField(storage=ImageSettingStorage(), verbose_name='resim', help_text='', blank=True, default='')
 
     def __str__(self):
         return self.name
+
 
     def image_tag(self):
         if self.image:
@@ -97,7 +98,7 @@ class Document(AbstractModel):
     order = models.IntegerField(default=0, verbose_name='sıra', help_text='')
     slug = models.SlugField(max_length=100, verbose_name='slug', help_text='', blank=True, default='')
     document_text = models.CharField(max_length=100, verbose_name='döküman metni', help_text='', blank=True, default='')
-    document = models.FileField(storages=DocumentStorages(), verbose_name='dosya', help_text='', blank=True, default='')
+    document = models.FileField(storage=DocumentStorage(), verbose_name='dosya', help_text='', blank=True, default='')
 
     def __str__(self):
         return self.slug

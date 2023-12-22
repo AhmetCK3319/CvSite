@@ -1,8 +1,7 @@
 from django.conf import settings
 
 if settings.DEBUG:
-    from django.core.files.storages import FileSystemStorage
-
+    from django.core.files.storage import FileSystemStorage
     class MediaStorage(FileSystemStorage):
         fileoverwrite = False
         default_acl = 'public-read'
