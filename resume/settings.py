@@ -117,7 +117,7 @@ STATICFILES_DIRS = [
     ]
 
 if DEBUG:
-    STATIC_URL = 'static/'
+    STATIC_URL = '/static/'
     STATIC_ROOT = BASE_DIR / "staticfiles"
 
     MEDIA_URL = '/media/'
@@ -137,7 +137,7 @@ else:
 
     AWS_DEFAULT_ACL = 'public-read'
     AWS_S3_OBJECT_PARAMETERS = {
-        'Expires': 'Thu, 31 Dec 2099 00:00:',
+        'Expires': 'Thu, 31 Dec 2099 00:00:00 GMT',
         'CacheControl': 'max-age=94608000',
     }
     STATICFILES_LOCATION = 'static'
