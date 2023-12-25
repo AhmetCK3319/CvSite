@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('securelogin/', admin.site.urls),
-    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('', include('core.urls')),
 
 ]
