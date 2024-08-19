@@ -5,20 +5,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0001_initial'),
+        ("core", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='document',
-            name='document',
-            field=models.FileField(blank=True, default='', storage=resume.custom_storages.DocumentStorage(), upload_to='', verbose_name='dosya'),
+            model_name="document",
+            name="document",
+            field=models.FileField(
+                blank=True,
+                default="",
+                storage=resume.custom_storages.DocumentStorage(),
+                upload_to="",
+                verbose_name="dosya",
+            ),
         ),
         migrations.AlterField(
-            model_name='imagemodel',
-            name='image',
-            field=models.ImageField(blank=True, default='', storage=resume.custom_storages.ImageSettingStorage(), upload_to='', verbose_name='resim'),
+            model_name="imagemodel",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                default="",
+                storage=resume.custom_storages.ImageSettingStorage(),
+                upload_to="",
+                verbose_name="resim",
+            ),
         ),
     ]

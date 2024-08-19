@@ -1,5 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import GeneralSettinModel, ImageModel, SkillModel, SocialModel, Document, Messages
+from .models import (
+    GeneralSettinModel,
+    ImageModel,
+    SkillModel,
+    SocialModel,
+    Document,
+    Messages,
+)
 from django.http import JsonResponse
 from .forms import ContactForm
 
@@ -11,13 +18,12 @@ def get_general_setting(parameter):
     except:
         return None
 
+
 def get_general_setting_description(parameter):
     try:
         return GeneralSettinModel.objects.get(name=parameter).description
     except:
         return None
-
-
 
 
 def get_image_setting(parameter):
@@ -35,23 +41,23 @@ def get_skill_setting(parameter):
 
 
 def index(request):
-    site_title = get_general_setting('site_title')
-    site_description = get_general_setting('site_description')
-    site_keyword = get_general_setting('site_keyword')
-    author_name = get_general_setting('author_name')
-    author_job = get_general_setting('author_job')
-    author_description = get_general_setting_description('author_description')
+    site_title = get_general_setting("site_title")
+    site_description = get_general_setting("site_description")
+    site_keyword = get_general_setting("site_keyword")
+    author_name = get_general_setting("author_name")
+    author_job = get_general_setting("author_job")
+    author_description = get_general_setting_description("author_description")
 
     # image setting
-    icon = get_image_setting('icon')
-    resim = get_image_setting('resim')
-    logo = get_image_setting('logo')
+    icon = get_image_setting("icon")
+    resim = get_image_setting("resim")
+    logo = get_image_setting("logo")
 
     # skill setting
-    backend = get_skill_setting('backend')
-    frontend = get_skill_setting('frontend')
-    devops = get_skill_setting('devops')
-    other = get_skill_setting('other')
+    backend = get_skill_setting("backend")
+    frontend = get_skill_setting("frontend")
+    devops = get_skill_setting("devops")
+    other = get_skill_setting("other")
 
     # socials
     socials = SocialModel.objects.all()
@@ -60,24 +66,23 @@ def index(request):
     documents = Document.objects.all()
 
     context = {
-        'site_title': site_title,
-        'site_description': site_description,
-        'site_keyword': site_keyword,
-        'author_name': author_name,
-        'author_job': author_job,
-        'author_description': author_description,
-        'icon': icon,
-        'resim': resim,
-        'logo': logo,
-        'backend': backend,
-        'frontend': frontend,
-        'devops': devops,
-        'other': other,
-        'socials': socials,
-        'documents': documents,
-
+        "site_title": site_title,
+        "site_description": site_description,
+        "site_keyword": site_keyword,
+        "author_name": author_name,
+        "author_job": author_job,
+        "author_description": author_description,
+        "icon": icon,
+        "resim": resim,
+        "logo": logo,
+        "backend": backend,
+        "frontend": frontend,
+        "devops": devops,
+        "other": other,
+        "socials": socials,
+        "documents": documents,
     }
-    return render(request, 'pages/index.html', context=context)
+    return render(request, "pages/index.html", context=context)
 
 
 def get_cv(request, slug):
@@ -89,12 +94,14 @@ def contact_message(request):
     if request.POST:
         contact_form = ContactForm(request.POST or None)
         if contact_form.is_valid():
-            name = contact_form.cleaned_data.get('name')
-            email = contact_form.cleaned_data.get('email')
-            subject = contact_form.cleaned_data.get('subject')
-            message = contact_form.cleaned_data.get('message')
+            name = contact_form.cleaned_data.get("name")
+            email = contact_form.cleaned_data.get("email")
+            subject = contact_form.cleaned_data.get("subject")
+            message = contact_form.cleaned_data.get("message")
 
-            Messages.objects.create(name=name, email=email, subject=subject, message=message)
+            Messages.objects.create(
+                name=name, email=email, subject=subject, message=message
+            )
             # mesaj buraya eklenecek.
             contact_form.send_email()
             success = True
@@ -103,7 +110,7 @@ def contact_message(request):
             success = False
             message = " Tekrar deneyiniz."
     context = {
-        'success': success,
-        'message': message,
+        "success": success,
+        "message": message,
     }
     return JsonResponse(context)
