@@ -8,9 +8,6 @@ services:
     volumes:
       - "postgresql-data:/var/lib/postgresql/data"
     command: -p 5432
-    networks:
-      - backend
-
   app:
     container_name: app_resume
     hostname: app_resume
@@ -24,11 +21,8 @@ services:
     volumes:
       - .:/srv/app
     ports:
-      - "8000:8000"
+      - "0.0.0.0:8000:8000"
     command: gunicorn resume.wsgi:application --bind 0.0.0.0:8000
-    networks:
-      - backend
-
   nginx:
     build:
       context: ./nginx
@@ -37,14 +31,7 @@ services:
     depends_on:
       - app
     ports:
-      - "90:90"
-    networks:
-      - backend
-
+      - 80:80
 volumes:
   postgresql-data:
   static-data:
-
-networks:
-  backend:
-    driver: bridge
